@@ -1,5 +1,10 @@
 name: CI
-on: [push]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
   build:
     name: Test
@@ -17,7 +22,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}  #这个是阿里云的私钥
           ARGS: "-avzr --delete"
-          SOURCE: "./build"
+          SOURCE: "build/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}    #阿里云的 ip
           REMOTE_USER: ${{ secrets.REMOTE_USER }}    #阿里云用户
           TARGET: "/var/www/sites/test"       #被部署的服务器路径 
